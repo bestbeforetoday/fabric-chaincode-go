@@ -4,52 +4,53 @@ package mock
 import (
 	"sync"
 
-	"github.com/bestbeforetoday/fabric-chaincode-go/shim"
-	"github.com/hyperledger/fabric-protos-go/peer"
+	"github.com/bestbeforetoday/fabric-chaincode-go/v2/shim"
+	"github.com/hyperledger/fabric-protos-go-apiv2/peer"
 )
 
 type Chaincode struct {
-	InitStub        func(shim.ChaincodeStubInterface) peer.Response
+	InitStub        func(shim.ChaincodeStubInterface) *peer.Response
 	initMutex       sync.RWMutex
 	initArgsForCall []struct {
 		arg1 shim.ChaincodeStubInterface
 	}
 	initReturns struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}
 	initReturnsOnCall map[int]struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}
-	InvokeStub        func(shim.ChaincodeStubInterface) peer.Response
+	InvokeStub        func(shim.ChaincodeStubInterface) *peer.Response
 	invokeMutex       sync.RWMutex
 	invokeArgsForCall []struct {
 		arg1 shim.ChaincodeStubInterface
 	}
 	invokeReturns struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}
 	invokeReturnsOnCall map[int]struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *Chaincode) Init(arg1 shim.ChaincodeStubInterface) peer.Response {
+func (fake *Chaincode) Init(arg1 shim.ChaincodeStubInterface) *peer.Response {
 	fake.initMutex.Lock()
 	ret, specificReturn := fake.initReturnsOnCall[len(fake.initArgsForCall)]
 	fake.initArgsForCall = append(fake.initArgsForCall, struct {
 		arg1 shim.ChaincodeStubInterface
 	}{arg1})
+	stub := fake.InitStub
+	fakeReturns := fake.initReturns
 	fake.recordInvocation("Init", []interface{}{arg1})
 	fake.initMutex.Unlock()
-	if fake.InitStub != nil {
-		return fake.InitStub(arg1)
+	if stub != nil {
+		return stub(arg1)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	fakeReturns := fake.initReturns
 	return fakeReturns.result1
 }
 
@@ -59,7 +60,7 @@ func (fake *Chaincode) InitCallCount() int {
 	return len(fake.initArgsForCall)
 }
 
-func (fake *Chaincode) InitCalls(stub func(shim.ChaincodeStubInterface) peer.Response) {
+func (fake *Chaincode) InitCalls(stub func(shim.ChaincodeStubInterface) *peer.Response) {
 	fake.initMutex.Lock()
 	defer fake.initMutex.Unlock()
 	fake.InitStub = stub
@@ -72,44 +73,45 @@ func (fake *Chaincode) InitArgsForCall(i int) shim.ChaincodeStubInterface {
 	return argsForCall.arg1
 }
 
-func (fake *Chaincode) InitReturns(result1 peer.Response) {
+func (fake *Chaincode) InitReturns(result1 *peer.Response) {
 	fake.initMutex.Lock()
 	defer fake.initMutex.Unlock()
 	fake.InitStub = nil
 	fake.initReturns = struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}{result1}
 }
 
-func (fake *Chaincode) InitReturnsOnCall(i int, result1 peer.Response) {
+func (fake *Chaincode) InitReturnsOnCall(i int, result1 *peer.Response) {
 	fake.initMutex.Lock()
 	defer fake.initMutex.Unlock()
 	fake.InitStub = nil
 	if fake.initReturnsOnCall == nil {
 		fake.initReturnsOnCall = make(map[int]struct {
-			result1 peer.Response
+			result1 *peer.Response
 		})
 	}
 	fake.initReturnsOnCall[i] = struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}{result1}
 }
 
-func (fake *Chaincode) Invoke(arg1 shim.ChaincodeStubInterface) peer.Response {
+func (fake *Chaincode) Invoke(arg1 shim.ChaincodeStubInterface) *peer.Response {
 	fake.invokeMutex.Lock()
 	ret, specificReturn := fake.invokeReturnsOnCall[len(fake.invokeArgsForCall)]
 	fake.invokeArgsForCall = append(fake.invokeArgsForCall, struct {
 		arg1 shim.ChaincodeStubInterface
 	}{arg1})
+	stub := fake.InvokeStub
+	fakeReturns := fake.invokeReturns
 	fake.recordInvocation("Invoke", []interface{}{arg1})
 	fake.invokeMutex.Unlock()
-	if fake.InvokeStub != nil {
-		return fake.InvokeStub(arg1)
+	if stub != nil {
+		return stub(arg1)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	fakeReturns := fake.invokeReturns
 	return fakeReturns.result1
 }
 
@@ -119,7 +121,7 @@ func (fake *Chaincode) InvokeCallCount() int {
 	return len(fake.invokeArgsForCall)
 }
 
-func (fake *Chaincode) InvokeCalls(stub func(shim.ChaincodeStubInterface) peer.Response) {
+func (fake *Chaincode) InvokeCalls(stub func(shim.ChaincodeStubInterface) *peer.Response) {
 	fake.invokeMutex.Lock()
 	defer fake.invokeMutex.Unlock()
 	fake.InvokeStub = stub
@@ -132,26 +134,26 @@ func (fake *Chaincode) InvokeArgsForCall(i int) shim.ChaincodeStubInterface {
 	return argsForCall.arg1
 }
 
-func (fake *Chaincode) InvokeReturns(result1 peer.Response) {
+func (fake *Chaincode) InvokeReturns(result1 *peer.Response) {
 	fake.invokeMutex.Lock()
 	defer fake.invokeMutex.Unlock()
 	fake.InvokeStub = nil
 	fake.invokeReturns = struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}{result1}
 }
 
-func (fake *Chaincode) InvokeReturnsOnCall(i int, result1 peer.Response) {
+func (fake *Chaincode) InvokeReturnsOnCall(i int, result1 *peer.Response) {
 	fake.invokeMutex.Lock()
 	defer fake.invokeMutex.Unlock()
 	fake.InvokeStub = nil
 	if fake.invokeReturnsOnCall == nil {
 		fake.invokeReturnsOnCall = make(map[int]struct {
-			result1 peer.Response
+			result1 *peer.Response
 		})
 	}
 	fake.invokeReturnsOnCall[i] = struct {
-		result1 peer.Response
+		result1 *peer.Response
 	}{result1}
 }
 

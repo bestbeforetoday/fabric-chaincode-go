@@ -6,7 +6,7 @@ package statebased_test
 import (
 	"testing"
 
-	"github.com/hyperledger/fabric-chaincode-go/v2/pkg/statebased"
+	"github.com/bestbeforetoday/fabric-chaincode-go/v2/pkg/statebased"
 	"github.com/hyperledger/fabric-protos-go-apiv2/common"
 	"github.com/hyperledger/fabric-protos-go-apiv2/msp"
 	"github.com/stretchr/testify/assert"
