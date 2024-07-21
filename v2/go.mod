@@ -1,4 +1,4 @@
-module github.com/hyperledger/fabric-chaincode-go/v2
+module github.com/bestbeforetoday/fabric-chaincode-go/v2
 
 go 1.21.0
 

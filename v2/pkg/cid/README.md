@@ -2,13 +2,13 @@
 
 The client identity chaincode library enables you to write chaincode which
 makes access control decisions based on the identity of the client
-(i.e. the invoker of the chaincode).  In particular, you may make access
+(i.e. the invoker of the chaincode). In particular, you may make access
 control decisions based on any or a combination of the following information associated with
 the client:
 
-* the client identity's MSP (Membership Service Provider) ID
-* an attribute associated with the client identity
-* an OU (Organizational Unit) value associated with the client identity
+- the client identity's MSP (Membership Service Provider) ID
+- an attribute associated with the client identity
+- an OU (Organizational Unit) value associated with the client identity
 
 Attributes are simply name and value pairs associated with an identity.
 For example, `email=me@gmail.com` indicates an identity has the `email`
@@ -24,9 +24,9 @@ All code samples below assume two things:
    to your chaincode.
 2. You have added the following import statement to your chaincode.
 
-    ```golang
-    import "github.com/hyperledger/fabric-chaincode-go/v2/pkg/cid"
-    ```
+   ```golang
+   import "github.com/bestbeforetoday/fabric-chaincode-go/v2/pkg/cid"
+   ```
 
 ### Getting the client's ID
 
@@ -47,7 +47,7 @@ mspid, err := cid.GetMSPID(stub)
 
 ### Getting an attribute value
 
-The following demonstrates how to get the value of the *attr1* attribute:
+The following demonstrates how to get the value of the _attr1_ attribute:
 
 ```golang
 val, ok, err := cid.GetAttributeValue(stub, "attr1")
@@ -63,7 +63,7 @@ if !ok {
 ### Asserting an attribute value
 
 Often all you want to do is to make an access control decision based on the value
-of an attribute, i.e. to assert the value of an attribute.  For example, the following
+of an attribute, i.e. to assert the value of an attribute. For example, the following
 will return an error if the client does not have the `myapp.admin` attribute
 with a value of `true`:
 
@@ -105,8 +105,8 @@ is not using an X509 certificate.
 ### Performing multiple operations more efficiently
 
 Sometimes you may need to perform multiple operations in order to make an access
-decision.  For example, the following demonstrates how to grant access to
-identities with MSP *org1MSP* and *attr1* OR with MSP *org1MSP* and *attr2*.
+decision. For example, the following demonstrates how to grant access to
+identities with MSP _org1MSP_ and _attr1_ OR with MSP _org1MSP_ and _attr2_.
 
 ```golang
 // Get the Client ID object
@@ -142,44 +142,44 @@ using Hyperledger Fabric CA as well as when using an external CA.
 There are two methods of adding attributes to an enrollment certificate
 with fabric-ca:
 
-  1. When you register an identity, you can specify that an enrollment certificate
-     issued for the identity should by default contain an attribute.  This behavior
-     can be overridden at enrollment time, but this is useful for establishing
-     default behavior and, assuming registration occurs outside of your application,
-     does not require any application change.
+1. When you register an identity, you can specify that an enrollment certificate
+   issued for the identity should by default contain an attribute. This behavior
+   can be overridden at enrollment time, but this is useful for establishing
+   default behavior and, assuming registration occurs outside of your application,
+   does not require any application change.
 
-     The following shows how to register *user1* with two attributes:
-     *app1Admin* and *email*.
-     The ":ecert" suffix causes the *appAdmin* attribute to be inserted into user1's
-     enrollment certificate by default.  The *email* attribute is not added
-     to the enrollment certificate by default.
+   The following shows how to register _user1_ with two attributes:
+   _app1Admin_ and _email_.
+   The ":ecert" suffix causes the _appAdmin_ attribute to be inserted into user1's
+   enrollment certificate by default. The _email_ attribute is not added
+   to the enrollment certificate by default.
 
-     ```bash
-     fabric-ca-client register --id.name user1 --id.secret user1pw --id.type user --id.affiliation org1 --id.attrs 'app1Admin=true:ecert,email=user1@gmail.com'
-     ```
+   ```bash
+   fabric-ca-client register --id.name user1 --id.secret user1pw --id.type user --id.affiliation org1 --id.attrs 'app1Admin=true:ecert,email=user1@gmail.com'
+   ```
 
-  2. When you enroll an identity, you may request that one or more attributes
-     be added to the certificate.
-     For each attribute requested, you may specify whether the attribute is
-     optional or not.  If it is not optional but does not exist for the identity,
-     enrollment fails.
+2. When you enroll an identity, you may request that one or more attributes
+   be added to the certificate.
+   For each attribute requested, you may specify whether the attribute is
+   optional or not. If it is not optional but does not exist for the identity,
+   enrollment fails.
 
-     The following shows how to enroll *user1* with the *email* attribute,
-     without the *app1Admin* attribute and optionally with the *phone* attribute
-     (if the user possesses *phone* attribute).
+   The following shows how to enroll _user1_ with the _email_ attribute,
+   without the _app1Admin_ attribute and optionally with the _phone_ attribute
+   (if the user possesses _phone_ attribute).
 
-     ```bash
-     fabric-ca-client enroll -u http://user1:user1pw@localhost:7054 --enrollment.attrs "email,phone:opt"
-     ```
+   ```bash
+   fabric-ca-client enroll -u http://user1:user1pw@localhost:7054 --enrollment.attrs "email,phone:opt"
+   ```
 
 #### Attribute format in a certificate
 
 Attributes are stored inside an X509 certificate as an extension with an
 ASN.1 OID (Abstract Syntax Notation Object IDentifier)
-of `1.2.3.4.5.6.7.8.1`.  The value of the extension is a JSON string of the
-form `{"attrs":{<attrName>:<attrValue}}`.  The following is a sample of a
+of `1.2.3.4.5.6.7.8.1`. The value of the extension is a JSON string of the
+form `{"attrs":{<attrName>:<attrValue}}`. The following is a sample of a
 certificate which contains the `attr1` attribute with a value of `val1`.
-See the final entry in the *X509v3 extensions* section.  Note also that the JSON
+See the final entry in the _X509v3 extensions_ section. Note also that the JSON
 entry could contain multiple attributes, though this sample shows only one.
 
 ```
@@ -228,7 +228,7 @@ Certificate:
 If you want to use the client identity library to extract or assert attribute
 values as described previously but you are not using Hyperledger Fabric CA,
 then you must ensure that the certificates which are issued by your external CA
-contain attributes of the form shown above.  In particular, the certificates
+contain attributes of the form shown above. In particular, the certificates
 must contain the `1.2.3.4.5.6.7.8.1` X509v3 extension with a JSON value
 containing the attribute names and values for the identity.
 

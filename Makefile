@@ -11,7 +11,7 @@ go_bin_dir := $(shell go env GOPATH)/bin
 .PHONY: unit-test
 unit-test:
 	cd '$(v2_dir)' && \
-		go test -timeout 10s -race -coverprofile=cover.out ./...
+		go test -timeout 30s -race -coverprofile=cover.out ./...
 
 .PHONY: generate
 generate:

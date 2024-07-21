@@ -12,8 +12,8 @@ import (
 	"encoding/pem"
 	"fmt"
 
+	"github.com/bestbeforetoday/fabric-chaincode-go/pkg/attrmgr"
 	"github.com/golang/protobuf/proto"
-	"github.com/hyperledger/fabric-chaincode-go/pkg/attrmgr"
 	"github.com/hyperledger/fabric-protos-go/msp"
 )
 

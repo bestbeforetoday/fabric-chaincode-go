@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hyperledger/fabric-chaincode-go/v2/shim/internal/mock"
+	"github.com/bestbeforetoday/fabric-chaincode-go/v2/shim/internal/mock"
 	"github.com/hyperledger/fabric-protos-go-apiv2/common"
 	"github.com/hyperledger/fabric-protos-go-apiv2/ledger/queryresult"
 	"github.com/hyperledger/fabric-protos-go-apiv2/peer"
